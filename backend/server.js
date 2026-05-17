@@ -20,11 +20,16 @@ const app = express();
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
-  cors: { origin: '*', methods: ['GET', 'POST'] }
+  cors: { origin: 'https://care-sync-project-eight.vercel.app/', methods: ['GET', 'POST'] }
 });
 
 // ── Middleware ──────────────────────────────────────────────
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+  })
+)
 app.use(express.json());
 app.use(morgan('dev'));
 
